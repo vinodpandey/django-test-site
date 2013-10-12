@@ -11,3 +11,25 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
+
+### django_debug toolbar - start #######
+
+INSTALLED_APPS.append('debug_toolbar')
+INTERNAL_IPS = ['127.0.0.1']
+MIDDLEWARE_CLASSES.insert(
+    MIDDLEWARE_CLASSES.index('django.middleware.common.CommonMiddleware') + 1,
+    'debug_toolbar.middleware.DebugToolbarMiddleware')
+
+# always show debug toolbar
+def custom_show_toolbar(request):
+    return True  # Always show toolbar, for example purposes only.
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': True,
+    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+    'HIDE_DJANGO_SQL': False,
+    'TAG': 'div',
+    'ENABLE_STACKTRACES' : True,
+}
+
+### django_debug toolbar - end #######
