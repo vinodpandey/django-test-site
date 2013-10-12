@@ -10,3 +10,7 @@ source bin/activate
 pip install -r config/requirements.txt  
 python manage.py syncdb  
 python manage.py migrate  
+
+python manage.py runserver  
+
+deactivate
