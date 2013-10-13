@@ -12,7 +12,7 @@ DATABASES = {
     }
 }
 
-### django_debug toolbar - start #######
+######### django_debug toolbar  #################
 
 INSTALLED_APPS.append('debug_toolbar')
 INTERNAL_IPS = ['127.0.0.1']
@@ -32,4 +32,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'ENABLE_STACKTRACES' : True,
 }
 
-### django_debug toolbar - end #######
+#############################################
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
