@@ -1,7 +1,8 @@
 *.py[cod]
 .Python
 db.sqlite
-
+.idea
+.idea/
 # C extensions
 *.so
 

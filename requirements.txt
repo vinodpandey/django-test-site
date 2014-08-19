@@ -1,4 +1,4 @@
 Django==1.5
 South==0.7.6
 django-debug-toolbar==0.9.4
-
+django-allauth==0.18.0

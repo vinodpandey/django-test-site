@@ -1,0 +1,26 @@
+{% extends "webbase.html" %}
+
+{% block content%}
+
+        Home Page
+
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li>django-allauth</li>
+            <li><a href="/accounts/login">/accounts/login</a></li>
+            <li><a href="/accounts/signup">/accounts/signup</a></li>
+            <li><a href="/accounts/logout">/accounts/logout</a></li>
+            <li><a href="/accounts/password/change">/accounts/password/change</a></li>
+            <li><a href="/accounts/password/set">/accounts/password/set</a></li>
+            <li><a href="/accounts/inactive">/accounts/inactive</a></li>
+            <li><a href="/accounts/email">/accounts/email</a></li>
+            <li><a href="/accounts/confirm-email">/accounts/confirm-email (email verification sent)</a></li>
+            <li><a href="/accounts/confirm-email/(?P<key>\w+)/">/accounts/confirm-email/(?P[key]\w+)/ (confirm email)</a></li>
+            <li><a href="/accounts/password/reset">/accounts/password/reset</a></li>
+            <li><a href="/accounts/password/reset/done">/accounts/password/reset/done</a></li>
+            <li><a href="/accounts/password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/">accounts/ ^ ^password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/</a></li>
+            <li><a href="/accounts/password/reset/key/done">/accounts/password/reset/key/done</a></li>
+            <li><a href="/accounts/social">/accounts/social</a></li>
+            <li><a href="/accounts/profile">/accounts/profile</a></li>
+        </ul>
+{% endblock%}

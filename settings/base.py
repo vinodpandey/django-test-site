@@ -132,6 +132,11 @@ INSTALLED_APPS = [
 
     'south',
 
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -162,3 +167,32 @@ LOGGING = {
         },
     }
 }
+
+TEMPLATE_CONTEXT_PROCESSORS = [
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.core.context_processors.request",
+    "django.contrib.messages.context_processors.messages"
+]
+
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+
+
+################### django allauth #####################################
+
+AUTHENTICATION_BACKENDS.append("allauth.account.auth_backends.AuthenticationBackend")
+
+TEMPLATE_CONTEXT_PROCESSORS.append("allauth.account.context_processors.account")
+TEMPLATE_CONTEXT_PROCESSORS.append("allauth.socialaccount.context_processors.socialaccount")
+
+LOGIN_REDIRECT_URL = '/'
+################### django allauth #####################################
+
