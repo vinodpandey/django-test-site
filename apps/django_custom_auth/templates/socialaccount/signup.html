@@ -1,0 +1,120 @@
+{% extends "socialaccount/base.html" %}
+{% load url from future %}
+
+{% load i18n %}
+
+{% block meta_title %}{% trans "Signup" %}{% endblock %}
+{% load widget_tweaks %}
+
+{% block fullpage %}
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+<form class="signup" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+
+  {% csrf_token %}
+  {% if redirect_field_value %}
+       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{% trans "Sign Up" %}</h3>
+                </div>
+                <div class="panel-body">
+
+                   <div class="alert alert-info" role="alert"> <p>
+                       {% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are about to use your {{provider_name}} account to login to
+{{site_name}}. As a final step, please complete the following form:{% endblocktrans %}
+                       </p>
+                   </div>
+
+
+                   <div class="row">
+                            <div class="form-group col-xs-12 col-md-10 {% if form.first_name.errors %} has-error {% endif %}">
+                                <label for="id_first_name" class="control-label">First Name</label>
+                                {{ form.first_name|attr:"class:form-control"|attr:"placeholder:First Name" }}
+                                {% if form.first_name.errors %}
+                                    <span class="help-block">{{ form.first_name.errors }}</span>
+                                {% endif %}
+                            </div>
+                     </div>
+
+                     <div class="row">
+                            <div class="form-group col-xs-12 col-md-10 {% if form.last_name.errors %} has-error {% endif %}">
+                                <label for="id_last_name" class="control-label">Last Name</label>
+                                {{ form.last_name|attr:"class:form-control"|attr:"placeholder:Last Name" }}
+                                {% if form.last_name.errors %}
+                                    <span class="help-block">{{ form.last_name.errors }}</span>
+                                {% endif %}
+                            </div>
+                     </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-md-10 {% if form.email.errors %} has-error {% endif %}">
+                            <label for="id_email" class="control-label">Email</label>
+                            {{ form.email|attr:"class:form-control"|attr:"placeholder:Email" }}
+                            {% if form.email.errors %}
+                                <span class="help-block">
+                                {% for error in form.email.errors %}
+                                    {% if "An account already exists with this e-mail address. Please sign in to that account first, then connect" in error  %}
+                                        {% load django_custom_auth_utils %}
+                                        {% user_email_validation form.email.value %}
+                                    {% else %}
+                                        {{ error }}
+                                    {% endif %}
+                                {% endfor %}
+                                </span>
+                            {% endif %}
+                        </div>
+                 </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-md-10">
+                            <div class="checkbox">
+                                <label>
+                                  {{ form.newsletter_subscribed }} Subscribe to newsletter
+                                </label>
+                            </div>
+                        </div>
+                     </div>
+
+                    <div class="row">
+                            <div class="form-group col-xs-12 col-md-10 {% if form.agreement.errors %} has-error {% endif %}">
+                                <div class="checkbox">
+                                    <label>
+                                    {{ form.agreement }} By creating an account, I accept onlineteachers.co.in's <a href='/tos.html'>Terms of Service</a>,
+                                        <a href='/privacy-policy.html'>Privacy Policy</a> and I am 13 years or above.
+                                    </label>
+                                    {% if form.agreement.errors %}
+                                        <span class="help-block" >{{ form.agreement.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                     </div>
+
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <input class="btn btn-primary" type="submit" value="{% trans 'Sign Up' %}"/>
+                </div>
+
+
+
+            </div>
+
+
+</form>
+
+
+    </div>
+</div>
+
+
+
+{% endblock %}

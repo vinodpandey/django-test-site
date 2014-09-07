@@ -136,7 +136,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'django_social_auth',
+    'django_custom_auth',
 
 ]
 
@@ -189,15 +189,28 @@ AUTHENTICATION_BACKENDS = [
 
 ################### django allauth #####################################
 AUTHENTICATION_BACKENDS.append("allauth.account.auth_backends.AuthenticationBackend")
+
 TEMPLATE_CONTEXT_PROCESSORS.append("allauth.account.context_processors.account")
 TEMPLATE_CONTEXT_PROCESSORS.append("allauth.socialaccount.context_processors.socialaccount")
+
 LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_UNIQUE_EMAIL = True
+SOCIALACCOUNT_AUTO_SIGNUP = False
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_FORM_CLASS = 'django_custom_auth.forms.SignupForm'
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = True
+
+SOCIALACCOUNT_QUERY_EMAIL = True
 ################### django allauth #####################################
 
 ################## custom user model #################
 
-AUTH_USER_MODEL = "django_social_auth.User"
+AUTH_USER_MODEL = "django_custom_auth.User"
 
 ################################################
 

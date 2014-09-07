@@ -7,8 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.http import urlquote
-
-
+from django.template.defaultfilters import slugify
 
 class SiteProfileNotAvailable(Exception):
     pass
@@ -47,8 +46,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     Password and email are required. Other fields are optional.
     """
     username = models.CharField(_('username'), max_length=90, blank=True)
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    first_name = models.CharField(_('first name'), max_length=30, blank=False)
+    last_name = models.CharField(_('last name'), max_length=30, blank=False)
     email = models.EmailField(_('email address'), unique=True)
     is_staff = models.BooleanField(_('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin '
@@ -57,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    newsletter_subscribed = models.BooleanField(_('newsletter subscribed'), default=False)
 
 
     objects = UserManager()
@@ -120,3 +120,12 @@ class User(AbstractBaseUser, PermissionsMixin):
             except (ImportError, ImproperlyConfigured):
                 raise SiteProfileNotAvailable
         return self._profile_cache
+
+
+    def save(self, *args, **kwargs):
+        if self.first_name != '' or self.last_name != '':
+            username = slugify((self.first_name + "-" + self.last_name).lower())
+        else:
+            username = slugify(self.email.split('@')[0])
+        self.username = username
+        super(User, self).save(*args, **kwargs)

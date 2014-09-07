@@ -1,0 +1,24 @@
+
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}
+Hi {{ user_display }}
+
+Thanks for registering at http://onlineteachers.co.in
+
+Before we can activate your account one last step must be taken to complete your registration.
+
+Please note - you must complete this last step to become a registered member.
+You will only need to visit this URL once to activate your account.
+
+To complete your registration, please click on this URL:
+{{ activate_url }}
+
+If the link in not clickable, copy and paste the url in you web browser.
+
+If you are still having problems signing up please contact a member of our support staff at onlineteachers@gmail.com
+
+Thanks,
+The Team
+http://onlineteachers.co.in
+Elpis Technology Solutions Pvt Ltd
+{% endautoescape %}
+
